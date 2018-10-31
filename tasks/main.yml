@@ -1,0 +1,12 @@
+---
+- name: set server facts for zabbix web
+  set_fact:
+    zabbix_server_hostname: "{{ zabbix_server_network_address | default(zabbix_server_network_address, true) }}"
+    cacheable: true
+  when: zabbix_server_network_address is defined
+
+- name: set postgres server facts for zabbix server
+  set_fact:
+    zabbix_server_dbhost: "{{ zabbix_server_dbhost | default(postgresql_network_address, true) }}"
+    cacheable: true
+  when: postgresql_network_address is defined
